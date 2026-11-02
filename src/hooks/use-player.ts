@@ -6,7 +6,7 @@ interface PlayerState {
   ready: boolean;
   playing: boolean;
   started: boolean;
-  buffering: boolean;
+  loading: boolean;
   blocked: boolean;
   elapsed: number;
   duration: number;
@@ -18,7 +18,7 @@ const initial: PlayerState = {
   ready: false,
   playing: false,
   started: false,
-  buffering: false,
+  loading: true,
   blocked: false,
   elapsed: 0,
   duration: 0,
@@ -49,7 +49,6 @@ export function usePlayer(
       ...initial,
       videoId: current.id,
       ready: true,
-      buffering: true,
     });
     // Reuse the iframe and its media element so the first play gesture carries on.
     if (current.suspended || document.hidden) target.cueVideoById(current.id);
@@ -78,6 +77,7 @@ export function usePlayer(
       if (!disposed)
         setState((previous) => ({
           ...previous,
+          loading: false,
           error: "YouTube is taking a little too long.",
         }));
     }, 20_000);
@@ -134,7 +134,9 @@ export function usePlayer(
                 ...previous,
                 playing: data === api.PlayerState.PLAYING,
                 started: previous.started || data === api.PlayerState.PLAYING,
-                buffering: data === api.PlayerState.BUFFERING,
+                loading:
+                  data === api.PlayerState.UNSTARTED ||
+                  data === api.PlayerState.BUFFERING,
                 blocked:
                   data === api.PlayerState.PLAYING ? false : previous.blocked,
               }));
@@ -152,7 +154,7 @@ export function usePlayer(
                   ...previous,
                   blocked: true,
                   playing: false,
-                  buffering: false,
+                  loading: false,
                 }));
             },
             onError: ({ data, target }) => {
@@ -165,7 +167,7 @@ export function usePlayer(
               setState((previous) => ({
                 ...previous,
                 playing: false,
-                buffering: false,
+                loading: false,
                 error: "This video couldn’t play here. Try again in a moment.",
               }));
             },
@@ -177,6 +179,7 @@ export function usePlayer(
         window.clearTimeout(readiness);
         setState((previous) => ({
           ...previous,
+          loading: false,
           error:
             error instanceof Error ? error.message : "YouTube is unavailable.",
         }));
@@ -237,10 +240,8 @@ export function usePlayer(
   }, [loadVideo]);
   // Cover the previous frame in the same render that selects the next video.
   const currentState =
-    state.videoId === id ? state : { ...initial, ready: state.ready };
-  const loading =
-    !currentState.error &&
-    !currentState.blocked &&
-    (currentState.buffering || !currentState.started);
-  return { host, ...currentState, loading, toggle, seek, retry };
+    state.videoId === null || state.videoId === id
+      ? state
+      : { ...initial, ready: state.ready };
+  return { host, ...currentState, toggle, seek, retry };
 }

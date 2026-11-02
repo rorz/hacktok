@@ -89,6 +89,9 @@ export function InfoDialog({ onClose }: Props) {
         <span>
           Rotate video <kbd>R</kbd>
         </span>
+        <span>
+          Show / hide UI <kbd>U</kbd>
+        </span>
       </div>
       <p className="maker-credit">
         A thing by{" "}

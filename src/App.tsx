@@ -1,5 +1,5 @@
 import { Bookmark, Info } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import mark from "./assets/mark.svg";
 import { BookmarksDrawer } from "./components/BookmarksDrawer";
 import { CommentsDrawer } from "./components/CommentsDrawer";
@@ -11,6 +11,7 @@ import type { Video } from "./shared/video";
 export function App() {
   const [muted, setMuted] = useState(false);
   const [rotated, setRotated] = useState(false);
+  const [uiHidden, setUiHidden] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [bookmarksOpen, setBookmarksOpen] = useState(false);
   const bookmarks = useBookmarks();
@@ -20,16 +21,54 @@ export function App() {
   const closeAbout = useCallback(() => setAboutOpen(false), []);
   const closeComments = useCallback(() => setCommentVideo(null), []);
   const closeBookmarks = useCallback(() => setBookmarksOpen(false), []);
+  const toggleUI = useCallback(() => {
+    setUiHidden((value) => !value);
+    setAboutOpen(false);
+    setBookmarksOpen(false);
+    setCommentVideo(null);
+  }, []);
+
+  useEffect(() => {
+    const handleKey = (event: KeyboardEvent) => {
+      if (
+        event.key.toLowerCase() !== "u" ||
+        event.repeat ||
+        event.isComposing ||
+        event.altKey ||
+        event.metaKey ||
+        event.ctrlKey ||
+        (event.target instanceof Element &&
+          event.target.closest("input, textarea, select, [contenteditable]"))
+      )
+        return;
+      event.preventDefault();
+      toggleUI();
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [toggleUI]);
 
   return (
-    <div className="app">
+    <div className={`app ${uiHidden ? "ui-hidden" : ""}`}>
       <header className="site-header">
-        <a href="/" className="brand" aria-label="HackTok home">
-          <img src={mark} width={32} height={32} alt="" />
-          <span>
-            HackTok<span className="brand-period">.</span>
-          </span>
-        </a>
+        <div className="brand-lockup">
+          <a href="/" className="brand" aria-label="HackTok home">
+            <img src={mark} width={32} height={32} alt="" />
+            <span>
+              HackTok<span className="brand-period">.</span>
+            </span>
+          </a>
+          <button
+            type="button"
+            className="ui-toggle"
+            onClick={toggleUI}
+            aria-pressed={uiHidden}
+            aria-keyshortcuts="U"
+            title={`${uiHidden ? "Show" : "Hide"} UI (U)`}
+          >
+            {uiHidden ? "Show UI" : "Hide UI"}
+          </button>
+        </div>
         <div className="header-right">
           <button
             type="button"

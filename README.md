@@ -40,6 +40,7 @@ disabled. Canonical and Open Graph URLs use `https://hacktok.org/`.
 | Bookmark video         | Bookmark button or B                |
 | Saved videos           | Bookmarks button beside About       |
 | Rotate video 90°       | R                                   |
+| Show / hide UI         | Button below the logo or U          |
 | Hacker News comments   | Comments button; right-side drawer  |
 | Share a specific video | Share; links include `v` and `seed` |
 | New shuffle            | Click the HackTok logo              |
@@ -52,9 +53,15 @@ history entry so swiping does not fill the browser's Back stack.
 
 Starts with sound on; offers a play button when the browser blocks audible
 autoplay. The same YouTube player stays mounted across videos to preserve playback
-permission after the first tap. Resizing or rotating the screen keeps the current
-video in place. Pauses when hidden or when About opens. Reading comments leaves playback
-running and prevents automatic advancement while either drawer is open.
+permission after the first tap. Incoming thumbnails cover the handoff until the
+next video starts. Resizing or rotating the screen keeps the current video in place.
+Pauses when hidden or when About opens. Reading comments leaves playback running
+and prevents automatic advancement while either drawer is open.
+
+On iPhone, use Safari's Share → Add to Home Screen, keep “Open as Web App” enabled
+if shown, then launch HackTok from its Home Screen icon. Standalone mode removes
+Safari's address bar and tabs in either orientation. The normal Safari tab cannot
+put the entire feed into fullscreen; native video fullscreen replaces the feed UI.
 
 Bookmarks are saved in localStorage on this browser, newest first, and sync
 between tabs on the same origin. The drawer lets you reopen a saved video with

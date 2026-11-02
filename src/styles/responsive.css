@@ -174,12 +174,13 @@
 }
 @media (orientation: landscape) and (max-height: 500px) {
   .site-header {
-    padding: 15px 22px;
+    padding: 15px max(22px, env(safe-area-inset-right)) 15px
+      max(22px, env(safe-area-inset-left));
     height: 80px;
   }
   .video-caption {
-    left: 25px;
-    bottom: 68px;
+    left: max(25px, env(safe-area-inset-left));
+    bottom: calc(68px + env(safe-area-inset-bottom));
     max-width: 60%;
   }
   .video-caption h1 {
@@ -188,8 +189,8 @@
     margin: 8px 0;
   }
   .action-position {
-    right: 15px;
-    bottom: 78px;
+    right: max(15px, env(safe-area-inset-right));
+    bottom: calc(78px + env(safe-area-inset-bottom));
   }
   .feed-actions {
     gap: 13px;
@@ -202,7 +203,7 @@
     display: none;
   }
   .feed-navigation {
-    right: 92px;
+    right: calc(92px + env(safe-area-inset-right));
     top: 112px;
   }
   .feed-navigation button {
@@ -210,13 +211,13 @@
     height: 34px;
   }
   .playback-bar {
-    bottom: 18px;
-    left: 20px;
-    right: 170px;
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    left: max(20px, env(safe-area-inset-left));
+    right: calc(170px + env(safe-area-inset-right));
   }
   .feed-position {
-    bottom: 30px;
-    right: 24px;
+    bottom: calc(30px + env(safe-area-inset-bottom));
+    right: max(24px, env(safe-area-inset-right));
   }
   .player-error {
     padding: 50px;

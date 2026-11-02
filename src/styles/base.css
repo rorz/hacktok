@@ -77,6 +77,47 @@ input:focus-visible {
 .site-header button {
   pointer-events: auto;
 }
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.ui-toggle {
+  padding: 5px 9px;
+  border: 1px solid #ffffff50;
+  border-radius: 5px;
+  background: #0b0d0c30;
+  color: #e0e8db;
+  font-size: 10px;
+  line-height: 1.4;
+  backdrop-filter: blur(8px);
+}
+.ui-toggle:hover {
+  color: #b9f97a;
+  border-color: #b9f97a;
+}
+.ui-hidden .site-header {
+  background: none;
+}
+.ui-hidden .video-card::after,
+.ui-hidden
+  :is(
+    .header-right,
+    .video-caption,
+    .action-position,
+    .feed-navigation,
+    .feed-position,
+    .playback-bar,
+    .autoplay-notice,
+    .center-play,
+    .player-loading,
+    .player-error,
+    .feed-status,
+    .feed-notice
+  ) {
+  display: none;
+}
 .brand {
   display: inline-flex;
   align-items: center;
