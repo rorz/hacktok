@@ -2,7 +2,7 @@
 
 A full-screen feed of the 6,454 videos in [HackerTube](https://hackertube.org).
 Swipe, scroll, or use the arrow keys. The interface floats over the video.
-Production domain: [hacktock.org](https://hacktock.org). The product name is HackTok.
+Production domain: [hacktok.org](https://hacktok.org). The product name is HackTok.
 
 ## Run
 
@@ -24,11 +24,11 @@ bun run deploy      # Checks, builds, then deploys to your Cloudflare account
 No tests or test framework. `bun.lock` pins dependencies. Regenerate Worker
 types with `bun run cf:types` when changing bindings.
 
-`wrangler.jsonc` targets `hacktock.org` as a Cloudflare Worker Custom Domain.
-The existing Cloudflare zone must be active in the deploying account. Running
+`wrangler.jsonc` targets `hacktok.org` as a Cloudflare Worker Custom Domain,
+with explicit account and zone IDs. The zone must be active in that account. Running
 `bun run deploy` publishes the Worker and attaches the domain; changing this
 configuration locally does not deploy it. The default `workers.dev` address is
-disabled. Canonical and Open Graph URLs use `https://hacktock.org/`.
+disabled. Canonical and Open Graph URLs use `https://hacktok.org/`.
 
 ## Controls
 
@@ -50,8 +50,8 @@ URL updates to `?v=VIDEO_ID&seed=SEED` on every video change. Reloading or shari
 that URL resumes the same video and sequence. Navigation replaces the current
 history entry so swiping does not fill the browser's Back stack.
 
-Starts muted to support autoplay; offers a play button when the browser blocks
-it. Pauses when hidden or when About opens. Reading comments leaves playback
+Starts with sound on; offers a play button when the browser blocks audible
+autoplay. Pauses when hidden or when About opens. Reading comments leaves playback
 running and prevents automatic advancement while either drawer is open.
 
 Bookmarks are saved in localStorage on this browser, newest first, and sync

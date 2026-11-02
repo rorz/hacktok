@@ -1,8 +1,15 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "hacktok",
+  "account_id": "8715fe32117162efcdfaf18fac4ce28d",
   "workers_dev": false,
-  "routes": [{ "pattern": "hacktock.org", "custom_domain": true }],
+  "routes": [
+    {
+      "pattern": "hacktok.org",
+      "zone_id": "394a058ef81589bf6f5cdce40f9de3e1",
+      "custom_domain": true
+    }
+  ],
   "main": "worker/index.ts",
   "compatibility_date": "2026-11-02",
   "compatibility_flags": ["nodejs_compat"],

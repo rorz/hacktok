@@ -9,7 +9,7 @@ import { useBookmarks } from "./hooks/use-bookmarks";
 import type { Video } from "./shared/video";
 
 export function App() {
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
   const [rotated, setRotated] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [bookmarksOpen, setBookmarksOpen] = useState(false);
