@@ -37,13 +37,6 @@
     left: 19px;
     width: calc(100% - 97px);
   }
-  .topic-tag {
-    font-size: 8px;
-    padding: 4px 7px;
-    letter-spacing: 0.5px;
-    margin-bottom: 12px;
-    max-width: 100%;
-  }
   .channel-line {
     font-size: 11px;
   }
@@ -166,9 +159,6 @@
   .video-summary {
     display: none;
   }
-  .topic-tag {
-    margin-bottom: 10px;
-  }
   .caption-footer {
     margin-top: 10px;
   }
@@ -196,9 +186,6 @@
     font-size: 20px;
     -webkit-line-clamp: 1;
     margin: 8px 0;
-  }
-  .topic-tag {
-    display: none;
   }
   .action-position {
     right: 15px;
@@ -238,6 +225,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-spin,
+  .video-poster,
   .action-button > span,
   .playback-bar input::-webkit-slider-thumb {
     animation: none;

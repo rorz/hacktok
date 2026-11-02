@@ -67,13 +67,20 @@ export function Player({
             { "--video-ratio": video.ratio ?? 16 / 9 } as React.CSSProperties
           }
         >
-          {!player.ready && !player.error && (
+          <div className="youtube-host" ref={player.host} />
+          <img
+            key={video.id}
+            className={`video-poster ${player.started ? "has-frame" : ""}`}
+            src={`https://i.ytimg.com/vi/${video.id}/hq2.jpg`}
+            alt=""
+            aria-hidden="true"
+          />
+          {player.loading && (
             <div className="player-loading" role="status">
               <LoaderCircle size={22} className="animate-spin" />
               <span>Finding the good stuff</span>
             </div>
           )}
-          <div className="youtube-host" ref={player.host} />
         </div>
         {!player.error && (
           <button
@@ -83,7 +90,7 @@ export function Player({
             disabled={!player.ready}
             aria-label={player.playing ? "Pause playback" : "Start playback"}
           >
-            {player.ready && !player.playing && (
+            {player.ready && !player.playing && !player.loading && (
               <span className="center-play">
                 <Play size={34} fill="currentColor" />
               </span>

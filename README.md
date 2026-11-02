@@ -51,7 +51,9 @@ that URL resumes the same video and sequence. Navigation replaces the current
 history entry so swiping does not fill the browser's Back stack.
 
 Starts with sound on; offers a play button when the browser blocks audible
-autoplay. Pauses when hidden or when About opens. Reading comments leaves playback
+autoplay. The same YouTube player stays mounted across videos to preserve playback
+permission after the first tap. Resizing or rotating the screen keeps the current
+video in place. Pauses when hidden or when About opens. Reading comments leaves playback
 running and prevents automatic advancement while either drawer is open.
 
 Bookmarks are saved in localStorage on this browser, newest first, and sync

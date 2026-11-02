@@ -4,6 +4,7 @@ import { useFeed } from "../hooks/use-feed";
 import { useViewport } from "../hooks/use-viewport";
 import type { Video } from "../shared/video";
 import { FeedActions } from "./FeedActions";
+import { Player } from "./Player";
 import { VideoCard } from "./VideoCard";
 
 interface Props {
@@ -111,29 +112,40 @@ export function Feed({
         onScroll={viewport.onScroll}
         aria-label="Video feed"
       >
-        <div style={{ height: start * viewport.height }} aria-hidden="true" />
-        {feed.videos.slice(start, end).map((item, index) => (
-          <section
-            className="feed-page"
-            key={item.id}
-            style={{ height: viewport.height }}
-          >
-            <VideoCard
-              video={item}
-              active={start + index === viewport.active}
-              muted={muted}
-              suspended={suspended}
-              onEnded={next}
-              onUnavailable={feed.exclude}
-            />
-          </section>
-        ))}
-        <div
-          style={{
-            height: Math.max(0, feed.videos.length - end) * viewport.height,
-          }}
-          aria-hidden="true"
-        />
+        <div className="feed-track">
+          {video && (
+            <div
+              className="active-player"
+              style={{ top: `calc(${viewport.active} * var(--page-height))` }}
+            >
+              <Player
+                video={video}
+                muted={muted}
+                suspended={suspended}
+                onEnded={next}
+                onUnavailable={feed.exclude}
+              />
+            </div>
+          )}
+          <div
+            style={{ height: `calc(${start} * var(--page-height))` }}
+            aria-hidden="true"
+          />
+          {feed.videos.slice(start, end).map((item, index) => (
+            <section className="feed-page" key={item.id}>
+              <VideoCard
+                video={item}
+                active={start + index === viewport.active}
+              />
+            </section>
+          ))}
+          <div
+            style={{
+              height: `calc(${Math.max(0, feed.videos.length - end)} * var(--page-height))`,
+            }}
+            aria-hidden="true"
+          />
+        </div>
       </section>
 
       {!video && (

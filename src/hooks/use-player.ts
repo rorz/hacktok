@@ -2,8 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { loadYouTube } from "../lib/youtube";
 
 interface PlayerState {
+  videoId: string | null;
   ready: boolean;
   playing: boolean;
+  started: boolean;
+  buffering: boolean;
   blocked: boolean;
   elapsed: number;
   duration: number;
@@ -11,8 +14,11 @@ interface PlayerState {
 }
 
 const initial: PlayerState = {
+  videoId: null,
   ready: false,
   playing: false,
+  started: false,
+  buffering: false,
   blocked: false,
   elapsed: 0,
   duration: 0,
@@ -28,10 +34,37 @@ export function usePlayer(
 ) {
   const host = useRef<HTMLDivElement>(null);
   const player = useRef<YT.Player | null>(null);
-  const preferences = useRef({ muted, suspended, onEnded, onUnavailable });
-  preferences.current = { muted, suspended, onEnded, onUnavailable };
+  const preferences = useRef({ id, muted, suspended, onEnded, onUnavailable });
+  preferences.current = { id, muted, suspended, onEnded, onUnavailable };
+  const loadedId = useRef<string | null>(null);
+  const playingId = useRef<string | null>(null);
   const [state, setState] = useState(initial);
   const [attempt, setAttempt] = useState(0);
+
+  const loadVideo = useCallback((target: YT.Player) => {
+    const current = preferences.current;
+    loadedId.current = current.id;
+    playingId.current = null;
+    setState({
+      ...initial,
+      videoId: current.id,
+      ready: true,
+      buffering: true,
+    });
+    // Reuse the iframe and its media element so the first play gesture carries on.
+    if (current.suspended || document.hidden) target.cueVideoById(current.id);
+    else target.loadVideoById(current.id);
+  }, []);
+
+  const isCurrentVideo = useCallback((target: YT.Player) => {
+    const videoId = new URLSearchParams(target.getVideoUrl().split("?")[1]).get(
+      "v",
+    );
+    return (
+      loadedId.current === preferences.current.id &&
+      (!videoId || videoId === preferences.current.id)
+    );
+  }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: The retry generation deliberately recreates the player.
   useEffect(() => {
@@ -55,7 +88,7 @@ export function usePlayer(
         const mount = document.createElement("div");
         container.replaceChildren(mount);
         instance = new api.Player(mount, {
-          videoId: id,
+          videoId: preferences.current.id,
           host: "https://www.youtube-nocookie.com",
           width: "100%",
           height: "100%",
@@ -76,15 +109,9 @@ export function usePlayer(
               target.getIframe().tabIndex = -1;
               if (preferences.current.muted) target.mute();
               else target.unMute();
-              if (!preferences.current.suspended && !document.hidden)
-                target.playVideo();
-              setState((previous) => ({
-                ...previous,
-                ready: true,
-                error: null,
-              }));
+              loadVideo(target);
               timer = window.setInterval(() => {
-                if (disposed) return;
+                if (disposed || !isCurrentVideo(target)) return;
                 setState((previous) => ({
                   ...previous,
                   elapsed: target.getCurrentTime(),
@@ -93,7 +120,7 @@ export function usePlayer(
               }, 500);
             },
             onStateChange: ({ data, target }) => {
-              if (disposed) return;
+              if (disposed || !isCurrentVideo(target)) return;
               if (
                 data === api.PlayerState.PLAYING &&
                 (preferences.current.suspended || document.hidden)
@@ -101,32 +128,44 @@ export function usePlayer(
                 target.pauseVideo();
                 return;
               }
+              if (data === api.PlayerState.PLAYING)
+                playingId.current = loadedId.current;
               setState((previous) => ({
                 ...previous,
                 playing: data === api.PlayerState.PLAYING,
+                started: previous.started || data === api.PlayerState.PLAYING,
+                buffering: data === api.PlayerState.BUFFERING,
                 blocked:
                   data === api.PlayerState.PLAYING ? false : previous.blocked,
               }));
-              if (data === api.PlayerState.ENDED) preferences.current.onEnded();
+              if (
+                data === api.PlayerState.ENDED &&
+                playingId.current === preferences.current.id
+              ) {
+                playingId.current = null;
+                preferences.current.onEnded();
+              }
             },
-            onAutoplayBlocked: () => {
-              if (!disposed)
+            onAutoplayBlocked: ({ target }) => {
+              if (!disposed && isCurrentVideo(target))
                 setState((previous) => ({
                   ...previous,
                   blocked: true,
                   playing: false,
+                  buffering: false,
                 }));
             },
-            onError: ({ data }) => {
-              if (disposed) return;
+            onError: ({ data, target }) => {
+              if (disposed || !isCurrentVideo(target)) return;
               window.clearTimeout(readiness);
               if ([2, 100, 101, 150].includes(data)) {
-                preferences.current.onUnavailable(id);
+                preferences.current.onUnavailable(preferences.current.id);
                 return;
               }
               setState((previous) => ({
                 ...previous,
                 playing: false,
+                buffering: false,
                 error: "This video couldn’t play here. Try again in a moment.",
               }));
             },
@@ -148,9 +187,15 @@ export function usePlayer(
       window.clearTimeout(readiness);
       window.clearInterval(timer);
       player.current = null;
+      loadedId.current = null;
+      playingId.current = null;
       instance?.destroy();
     };
-  }, [id, attempt]);
+  }, [attempt, loadVideo, isCurrentVideo]);
+
+  useEffect(() => {
+    if (player.current && loadedId.current !== id) loadVideo(player.current);
+  }, [id, loadVideo]);
 
   useEffect(() => {
     if (!state.ready || !player.current) return;
@@ -174,7 +219,10 @@ export function usePlayer(
   const toggle = useCallback(() => {
     const current = player.current;
     if (!current || preferences.current.suspended) return;
-    if (current.getPlayerState() === YT.PlayerState.PLAYING)
+    if (
+      current.getPlayerState() === YT.PlayerState.PLAYING ||
+      current.getPlayerState() === YT.PlayerState.BUFFERING
+    )
       current.pauseVideo();
     else current.playVideo();
   }, []);
@@ -183,6 +231,16 @@ export function usePlayer(
     (seconds: number) => player.current?.seekTo(seconds, true),
     [],
   );
-  const retry = useCallback(() => setAttempt((value) => value + 1), []);
-  return { host, ...state, toggle, seek, retry };
+  const retry = useCallback(() => {
+    if (player.current) loadVideo(player.current);
+    else setAttempt((value) => value + 1);
+  }, [loadVideo]);
+  // Cover the previous frame in the same render that selects the next video.
+  const currentState =
+    state.videoId === id ? state : { ...initial, ready: state.ready };
+  const loading =
+    !currentState.error &&
+    !currentState.blocked &&
+    (currentState.buffering || !currentState.started);
+  return { host, ...currentState, loading, toggle, seek, retry };
 }

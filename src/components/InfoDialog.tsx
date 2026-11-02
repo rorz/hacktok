@@ -37,7 +37,14 @@ export function InfoDialog({ onClose }: Props) {
         <a href="https://hackertube.org" target="_blank" rel="noreferrer">
           HackerTube
         </a>
-        , originally shared on Hacker News.
+        , originally shared on Hacker News. Fully{" "}
+        <a
+          href="https://github.com/rorz/hacktok"
+          target="_blank"
+          rel="noreferrer"
+        >
+          open source.
+        </a>
       </p>
       <p className="fine-print">
         Data:{" "}
