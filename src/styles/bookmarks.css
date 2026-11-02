@@ -1,0 +1,130 @@
+.bookmarks-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #ffffff08;
+}
+.bookmark-link {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex: 1;
+  min-width: 0;
+  border-radius: 5px;
+}
+.bookmark-thumbnail {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 108px;
+  aspect-ratio: 16 / 9;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #0b0d0c;
+}
+.bookmark-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bookmark-thumbnail svg {
+  position: absolute;
+  color: white;
+  filter: drop-shadow(0 1px 6px #000);
+  opacity: 0;
+  transition: opacity 120ms;
+}
+.bookmark-link:hover .bookmark-thumbnail svg,
+.bookmark-link:focus-visible .bookmark-thumbnail svg {
+  opacity: 1;
+}
+.bookmark-details {
+  min-width: 0;
+}
+.bookmark-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  color: #e5eddf;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 550;
+}
+.bookmark-link:hover .bookmark-title {
+  color: #b9f97a;
+}
+.bookmark-channel {
+  display: block;
+  margin-top: 6px;
+  color: #8e9b84;
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+.bookmark-remove {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 36px;
+  flex-shrink: 0;
+  color: #85977a;
+  border-radius: 5px;
+}
+.bookmark-remove:hover {
+  color: #b9f97a;
+  background: #ffffff08;
+}
+.bookmarks-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 70px 24px;
+  text-align: center;
+  color: #8e9b84;
+}
+.bookmarks-empty p {
+  margin-top: 6px;
+  font-size: 15px;
+  color: #dce6d4;
+}
+.bookmarks-empty span,
+.bookmarks-notice {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.bookmarks-notice {
+  margin: 20px;
+  color: #d0dbca;
+}
+@media (max-width: 480px) {
+  .bookmark-item {
+    padding: 15px;
+    gap: 4px;
+  }
+  .bookmark-link {
+    gap: 10px;
+  }
+  .bookmark-thumbnail {
+    width: 88px;
+  }
+  .bookmark-title {
+    font-size: 12px;
+  }
+  .bookmark-channel {
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bookmark-thumbnail svg {
+    transition: none;
+  }
+}

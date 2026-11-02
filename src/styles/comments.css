@@ -1,0 +1,138 @@
+.comments-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 23px 22px;
+  border-bottom: 1px solid #ffffff08;
+}
+.comment-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 29px;
+  height: 29px;
+  border-radius: 50%;
+  background: #283321;
+  color: #c5e3ad;
+  font-size: 11px;
+  font-weight: 650;
+}
+.comment-content {
+  min-width: 0;
+  flex: 1;
+}
+.comment-byline {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 22px;
+  margin-bottom: 8px;
+}
+.comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e6eddf;
+  overflow-wrap: anywhere;
+}
+a.comment-author:hover {
+  color: #b9f97a;
+}
+.comment-byline time {
+  font-size: 10px;
+  color: #798771;
+  white-space: nowrap;
+}
+.comment-permalink {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: #85977a;
+  border-radius: 4px;
+}
+.comment-permalink:hover {
+  color: #b9f97a;
+  background: #ffffff08;
+}
+.comment-text {
+  color: #c9d2c2;
+  font-size: 13px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.comment-text p {
+  margin: 12px 0 0;
+}
+.comment-text p:first-child {
+  margin-top: 0;
+}
+.comment-text a {
+  color: #b9e997;
+  text-decoration: underline;
+  text-decoration-color: #b9e99745;
+  text-underline-offset: 3px;
+}
+.comment-text a:hover {
+  color: #d8ffbb;
+}
+.comment-text em {
+  font-style: italic;
+}
+.comment-text strong {
+  font-weight: 650;
+  color: #e9f2e1;
+}
+.comment-text pre {
+  margin: 12px 0;
+  padding: 12px;
+  background: #0a1007;
+  border-radius: 6px;
+  white-space: pre-wrap;
+}
+.comment-text code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.comment-unavailable {
+  font-size: 12px;
+  line-height: 1.6;
+  color: #819075;
+}
+.comments-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 150px;
+  padding: 30px;
+  color: #9daf90;
+  font-size: 12px;
+  text-align: center;
+}
+.comments-retry {
+  display: flex;
+  margin: 22px auto;
+}
+@media (max-width: 480px) {
+  .comment {
+    padding: 20px 17px;
+    gap: 10px;
+  }
+  .comment-text {
+    font-size: 12px;
+  }
+  .comment-byline {
+    gap: 6px;
+  }
+  .comment-byline time {
+    font-size: 9px;
+  }
+}

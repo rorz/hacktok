@@ -1,0 +1,246 @@
+@media (max-width: 900px) {
+  .video-caption {
+    max-width: 530px;
+  }
+}
+@media (max-width: 600px) {
+  .site-header {
+    padding: calc(20px + env(safe-area-inset-top)) 17px 0;
+    height: calc(100px + env(safe-area-inset-top));
+    align-items: flex-start;
+  }
+  .brand {
+    gap: 7px;
+  }
+  .brand > span {
+    font-size: 22px;
+    letter-spacing: -1.2px;
+  }
+  .brand img {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+  }
+  .header-button {
+    width: 28px;
+    height: 28px;
+    border: 0;
+    background: transparent;
+    backdrop-filter: none;
+  }
+  .header-button svg {
+    width: 18px;
+    height: 18px;
+  }
+  .video-caption {
+    bottom: calc(85px + env(safe-area-inset-bottom));
+    left: 19px;
+    width: calc(100% - 97px);
+  }
+  .topic-tag {
+    font-size: 8px;
+    padding: 4px 7px;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    max-width: 100%;
+  }
+  .channel-line {
+    font-size: 11px;
+  }
+  .video-caption h1 {
+    font-size: 22px;
+    letter-spacing: -0.65px;
+    line-height: 1.22;
+    margin: 11px 0 9px;
+    -webkit-line-clamp: 3;
+  }
+  .video-summary {
+    font-size: 11px;
+    line-height: 1.6;
+    -webkit-line-clamp: 2;
+  }
+  .caption-footer {
+    font-size: 10px;
+    margin-top: 14px;
+  }
+  .action-position {
+    right: 11px;
+    bottom: calc(103px + env(safe-area-inset-bottom));
+  }
+  .feed-actions {
+    gap: 22px;
+  }
+  .action-button {
+    width: 48px;
+    gap: 7px;
+  }
+  .action-button > span {
+    width: 41px;
+    height: 41px;
+    background: #0c140a50;
+  }
+  .action-button small {
+    font-size: 8px;
+  }
+  .action-button svg {
+    width: 21px;
+    height: 21px;
+  }
+  .feed-navigation {
+    right: 15px;
+    top: calc(130px + env(safe-area-inset-top));
+    gap: 9px;
+  }
+  .feed-navigation button {
+    width: 34px;
+    height: 34px;
+  }
+  .feed-navigation svg {
+    width: 18px;
+    height: 18px;
+  }
+  .feed-position {
+    bottom: calc(23px + env(safe-area-inset-bottom));
+    right: 20px;
+    font-size: 8px;
+    gap: 5px;
+  }
+  .position-line {
+    display: none;
+  }
+  .playback-bar {
+    left: 15px;
+    right: 110px;
+    bottom: calc(13px + env(safe-area-inset-bottom));
+    height: 32px;
+    gap: 8px;
+  }
+  .playback-time {
+    font-size: 8px;
+    min-width: 23px;
+  }
+  .play-toggle {
+    width: 22px;
+  }
+  .info-dialog {
+    padding: 28px 24px;
+  }
+  .info-dialog h2 {
+    font-size: 31px;
+  }
+  .player-error {
+    padding: 18px;
+    gap: 12px;
+    padding-bottom: 180px;
+  }
+  .player-error h3 {
+    font-size: 19px;
+  }
+  .player-error p {
+    font-size: 12px;
+  }
+  .autoplay-notice {
+    top: calc(85px + env(safe-area-inset-top));
+  }
+}
+@media (max-width: 360px) {
+  .brand > span {
+    font-size: 20px;
+  }
+  .brand img {
+    width: 23px;
+    height: 23px;
+  }
+  .video-caption h1 {
+    font-size: 19px;
+  }
+}
+@media (max-height: 600px) {
+  .video-caption {
+    bottom: 75px;
+  }
+  .video-caption h1 {
+    font-size: 23px;
+    -webkit-line-clamp: 2;
+  }
+  .video-summary {
+    display: none;
+  }
+  .topic-tag {
+    margin-bottom: 10px;
+  }
+  .caption-footer {
+    margin-top: 10px;
+  }
+  .action-position {
+    bottom: 83px;
+  }
+  .feed-actions {
+    gap: 15px;
+  }
+  .feed-navigation {
+    top: 110px;
+  }
+}
+@media (orientation: landscape) and (max-height: 500px) {
+  .site-header {
+    padding: 15px 22px;
+    height: 80px;
+  }
+  .video-caption {
+    left: 25px;
+    bottom: 68px;
+    max-width: 60%;
+  }
+  .video-caption h1 {
+    font-size: 20px;
+    -webkit-line-clamp: 1;
+    margin: 8px 0;
+  }
+  .topic-tag {
+    display: none;
+  }
+  .action-position {
+    right: 15px;
+    bottom: 78px;
+  }
+  .feed-actions {
+    gap: 13px;
+  }
+  .action-button > span {
+    width: 34px;
+    height: 34px;
+  }
+  .action-button small {
+    display: none;
+  }
+  .feed-navigation {
+    right: 92px;
+    top: 112px;
+  }
+  .feed-navigation button {
+    width: 34px;
+    height: 34px;
+  }
+  .playback-bar {
+    bottom: 18px;
+    left: 20px;
+    right: 170px;
+  }
+  .feed-position {
+    bottom: 30px;
+    right: 24px;
+  }
+  .player-error {
+    padding: 50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin,
+  .action-button > span,
+  .playback-bar input::-webkit-slider-thumb {
+    animation: none;
+    transition: none;
+  }
+}

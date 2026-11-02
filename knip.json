@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/knip/schema.json",
+  "entry": ["scripts/*.ts", ".pokayoke/rules/*.rule.ts"],
+  "project": [
+    "src/**/*.{ts,tsx,css}",
+    "worker/**/*.ts",
+    "scripts/**/*.ts",
+    ".pokayoke/rules/**/*.ts"
+  ]
+}

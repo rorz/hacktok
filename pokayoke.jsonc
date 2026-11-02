@@ -1,0 +1,25 @@
+{
+  "$schema": "https://pokayoke.codes/schema.json",
+  "extends": ["pokayoke/recommended", "pokayoke/typescript/recommended"],
+  "localRules": [".pokayoke/rules/**/*.rule.ts"],
+  "files": [
+    "AGENTS.md",
+    "README.md",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "worker/**/*.ts",
+    "scripts/**/*.ts",
+    ".pokayoke/rules/**/*.ts",
+    "package.json"
+  ],
+  "ignores": ["**/node_modules/**", "**/dist/**", "**/*.d.ts"],
+  "suppressions": {
+    "directive": "pokayoke-ignore",
+    "requireReason": true,
+    "reportUnused": "warn"
+  },
+  "rules": {
+    "repo/feed-contract": "error",
+    "structure/max-file-lines": ["error", { "max": 350 }]
+  }
+}

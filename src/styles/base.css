@@ -1,0 +1,246 @@
+@theme {
+  --color-lime: #b9f97a;
+  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+:root {
+  font-family: var(--font-sans);
+  color: #f3f5f0;
+  background: #0b0d0c;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow: hidden;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a {
+  touch-action: manipulation;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+button,
+input {
+  font: inherit;
+}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid #b9f97a;
+  outline-offset: 5px;
+}
+::selection {
+  background: #b9f97a;
+  color: #0b0d0c;
+}
+.app {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* The header floats above the video; it never consumes feed space. */
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 26px 32px;
+  z-index: 10;
+  pointer-events: none;
+  background: linear-gradient(#0008, transparent);
+}
+.site-header a,
+.site-header button {
+  pointer-events: auto;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-shadow: 0 2px 16px #0008;
+}
+.brand > span {
+  font-size: 25px;
+  letter-spacing: -1.3px;
+  font-weight: 750;
+}
+.brand-period {
+  color: #b9f97a;
+}
+.brand img {
+  display: block;
+  flex-shrink: 0;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.header-button {
+  color: #dfe8d6;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #ffffff24;
+  border-radius: 50%;
+  background: #10140d30;
+  backdrop-filter: blur(10px);
+}
+.header-button:hover {
+  color: #b9f97a;
+  border-color: #b9f97a70;
+}
+.bookmarks-button {
+  position: relative;
+}
+.bookmark-count {
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  display: grid;
+  place-items: center;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  border-radius: 8px;
+  background: #b9f97a;
+  color: #17210e;
+  font-size: 8px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #90a17f;
+}
+
+.small-button {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 550;
+  border-radius: 7px;
+  background: #242c22;
+  color: #e7efdf;
+}
+.small-button.primary {
+  background: #b9f97a;
+  color: #1b2513;
+}
+.small-button:hover {
+  filter: brightness(1.1);
+}
+.info-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  border: 1px solid #363d31;
+  padding: 36px;
+  background: #151a13;
+  color: #ebf1e5;
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  border-radius: 20px;
+  box-shadow: 0 30px 100px #0008;
+}
+.info-dialog::backdrop {
+  background: #030704bc;
+  backdrop-filter: blur(10px);
+}
+.dialog-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  color: #9ba991;
+  padding: 6px;
+  border-radius: 50%;
+}
+.dialog-close:hover {
+  background: #2b3425;
+}
+.info-dialog h2 {
+  margin: 14px 0 24px;
+  font-size: 35px;
+  letter-spacing: -1.5px;
+  font-weight: 650;
+}
+.info-dialog p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #a8b2a0;
+  margin: 16px 0;
+}
+.info-dialog p a {
+  color: #d6efbf;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.info-dialog .fine-print {
+  font-size: 11px;
+  color: #78866e;
+  margin-top: 16px;
+}
+.info-dialog .maker-credit {
+  margin: 25px 0 0;
+  font-size: 12px;
+  color: #8e9b84;
+}
+.keyboard-guide {
+  display: grid;
+  gap: 12px;
+  background: #0f140e;
+  border-radius: 10px;
+  padding: 18px;
+  margin-top: 25px;
+}
+.keyboard-guide > span {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #a8b79c;
+  font-size: 12px;
+}
+kbd {
+  display: inline-flex;
+  min-width: 23px;
+  justify-content: center;
+  padding: 2px 6px;
+  border: 1px solid #34412d;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #c0d1b2;
+}
