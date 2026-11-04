@@ -1,6 +1,6 @@
 # HackTok
 
-A full-screen feed of the 6,454 videos in [HackerTube](https://hackertube.org).
+A full-screen feed of the videos in [HackerTube](https://hackertube.org).
 Swipe, scroll, or use the arrow keys. The interface floats over the video.
 Production domain: [hacktok.org](https://hacktok.org). The product name is HackTok.
 
